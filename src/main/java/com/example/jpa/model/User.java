@@ -1,0 +1,46 @@
+package com.example.jpa.model;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.util.List;
+
+@Entity
+@Table(name = "users")
+public class User extends AuditModel {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @NotNull
+    @Size(max = 100)
+    @Column(unique = true)
+    private String name;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @OneToMany
+    private List<Incident> incidentList;
+
+    public List<Incident> getIncidentList() {
+        return incidentList;
+    }
+
+    public void setIncidentList(List incidentList) {
+        this.incidentList = incidentList;
+    }
+}
